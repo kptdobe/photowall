@@ -1,8 +1,10 @@
 $(function() {
     var IMAGE_CONTAINER_SELECTOR = '.images_container';
+    var container = $(IMAGE_CONTAINER_SELECTOR);
+    var duration = container.get(0).dataset.duration || 5;
 
     var sequence = function() {
-        var container = $(IMAGE_CONTAINER_SELECTOR);
+
         var images = container.children();
         var active = container.children(':visible');
         var isFirstTime = active.length === 0;
@@ -55,6 +57,6 @@ $(function() {
     };
 
     sequence();
-    window.setInterval(sequence, 5000);
+    window.setInterval(sequence, duration * 1000);
 
 });

@@ -6,5 +6,12 @@
   },
   "server": {
     "port": 3000
+  },
+  "app": {
+    "slideshow": {
+      "items": {
+        "duration": 10
+      }
+    }
   }
 }

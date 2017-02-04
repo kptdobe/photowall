@@ -1,3 +1,4 @@
+var myconf = require('../myconf').myconf;
 var express = require('express');
 var router = express.Router();
 
@@ -9,7 +10,10 @@ router.get('/', function(req, res, next) {
         req.connection.socket.remoteAddress;
 
     console.log('Incoming request from client ' + ip);
-  res.render('images', { images: global.images });
+  res.render('images', {
+      duration: myconf.get('app:slideshow:items:duration'),
+      images: global.images
+  });
 });
 
 module.exports = router;
