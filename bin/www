@@ -7,12 +7,10 @@
 var app = require('../app');
 var debug = require('debug')('phototheque:server');
 var http = require('http');
+var myconf = require('../myconf').myconf;
 
-/**
- * Get port from environment and store in Express.
- */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(myconf.get('server:port') || '3000');
 app.set('port', port);
 
 /**

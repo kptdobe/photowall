@@ -1,8 +1,10 @@
 var fs = require('fs');
 var gm = require('gm');
+var myconf = require('../myconf').myconf;
 
-var SOURCE_FOLDER = '/Users/alex/Downloads/Photowall';
-var TARGET_FOLDER = __dirname +  '/public/images';
+
+var SOURCE_FOLDER = myconf.get('local:images:source');
+var TARGET_FOLDER = __dirname +  '/../public/images';
 
 fs.readdir(SOURCE_FOLDER, function(err, files) {
     var images = [];
@@ -22,18 +24,17 @@ fs.readdir(SOURCE_FOLDER, function(err, files) {
         var random  = Math.floor(Math.random() * i);
 
         var path = images[random];
-        var root = path.substring(0, path.lastIndexOf('/') + 1);
         var extension = path.substring(path.lastIndexOf('.'), path.length);
-
-
-        console.log('Renaming', path, 'to', newPath);
 
         var regex = /[ \(\)]/g;
         var filteredPath = path.replace(regex, '_');
 
-        fs.renameSync(path, filteredPath);
+        if (path != filteredPath) {
+            fs.renameSync(path, filteredPath);
+        }
 
-        var newPath = TARGET_FOLDER + '/' + i + extension;
+        var newPath = TARGET_FOLDER + '/' + (("000" + i).slice(-4)) + extension;
+        console.log('Renaming', path, 'to', newPath);
         try {
             gm(filteredPath)
                 .autoOrient()

@@ -1,0 +1,10 @@
+{
+  "local": {
+    "images": {
+      "source": "/Users/alex/Downloads/Photowall"
+    }
+  },
+  "server": {
+    "port": 3000
+  }
+}
