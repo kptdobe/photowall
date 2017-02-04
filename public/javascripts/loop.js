@@ -30,14 +30,16 @@ $(function() {
         };
 
         var show = function(item) {
-            item.slideDown(500);
+            item.addClass('on').animate({top: 0}, 1000);
         };
 
-        var hide = function(item, callback) {
-            item.fadeOut(500, function() {
+        var transition = function(current, next, callback) {
+            next.addClass('on');
+            current.animate({top: 1000}, 1000, function() {
+                $(this).removeClass('on').css('top', '').css('background-image', '');
                 callback.call();
-                item.css('background-image', 'url("")');
             });
+            show(next);
         };
 
         // transition
@@ -45,18 +47,9 @@ $(function() {
             prepare(nextItem);
             prepare(nextNextItem);
             show(nextItem);
-            delete container;
-            delete images;
-            delete active;
-            delete nextItem;
         } else {
-            hide(active, function() {
-                show(nextItem);
+            transition(active, nextItem, function() {
                 prepare(nextNextItem);
-                delete container;
-                delete images;
-                delete active;
-                delete nextItem;
             });
         }
     };
